@@ -28,7 +28,7 @@ def article_detail(request, id): #文章详情函数
                                          'markdown.extensions.codehilite',
                                      ])
     context = {'article':article}
-    return render(request , 'article/detail.html',context)
+    return render(request, 'article/detail.html', context)
 
 def article_create(request): #新建文章函数
     if request.method == 'POST': #判断用户是否提交数据
@@ -45,4 +45,14 @@ def article_create(request): #新建文章函数
         article_post_form = Articlepostform() #创建表单实例
         context = {'article_post_form': article_post_form} #赋值上下文
         return render(request, 'article/create.html', context)
+
+# 安全删除文章
+def article_safe_delete(request, id):
+    if request.method == 'POST':
+        article = ArticlePost.objects.get(id=id)
+        article.delete()
+        return redirect("article:article_list")
+    else:
+        return HttpResponse("仅允许post请求")
+
 
