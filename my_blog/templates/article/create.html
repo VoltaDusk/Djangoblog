@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% load staticfiles %}
+{%block title%} 新建文章 {%endblock title%}
+{%block content%}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br>
+<!--            提交文章的表单-->
+            <form method="post" action=".">
+                {% csrf_token%}
+                <div class="form-group">
+                    <label for="title">文章标题</label> <!-- 文章标题 --> <!-- 标签 -->
+                    <input type="text" class="form-control" id="title" name="title">  <!-- 文本框 -->
+                </div>
+                <!-- 文章正文 -->
+                <div class="form-group">
+                    <label for="body">文章正文</label>
+                    <!-- 文本区域 -->
+                    <textarea type="text" class="form-control" id="body" name="body" rows="12"></textarea>
+                </div>
+<!--                提交按钮-->
+                <button type="submit" class="btn btn-primary">完成</button>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock content%}
