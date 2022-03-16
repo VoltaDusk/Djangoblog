@@ -9,10 +9,26 @@
                 <li class="navbar-nav">
                     <a class="nav-link" href="{% url 'article:article_create' %}">新建文章</a>
                 </li>
+                <!--                登录功能-->
+                {% if usre.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="fropdown" aria-haspopup="true" aria-expanded="false">
+                        {{user.username }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">退出登录</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'userprofile:login' %}">登录</a>
+                </li>
+                <!-- if 语句在这里结束 -->
+                {% endif %}
             </ul>
         </div>
     </div>
-
 
 
 </nav>
