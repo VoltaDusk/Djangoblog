@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from .forms import Articlepostform
 # 引入User模型
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 
 def article_list(request):  # 文章列表函数
@@ -35,7 +36,7 @@ def article_create(request):  # 新建文章函数
         article_post_form = Articlepostform(data=request.POST)  # 将提交的数据赋值到表单实例中
         if article_post_form.is_valid():  # 判断提交的数据是否满足模型要求
             new_article = article_post_form.save(commit=False)  # 保存数据但暂时不提交到数据库
-            new_article.author = User.objects.get(id=1)
+            new_article.author = User.objects.get(id=request.user.id)
             new_article.save()  # 将新建文章保存到数据库
             return redirect("article:article_list")  # 完成后返回到文章列表
         else:
@@ -81,3 +82,6 @@ def article_update(request, id):
         article_post_form = Articlepostform()
         context = {'article': article, 'article_post_form': article_post_form}
         return render(request, 'article/update.html', context)
+
+
+

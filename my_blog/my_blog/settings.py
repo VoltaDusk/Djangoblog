@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'article',
     'userprofile',
+    'password_reset',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,17 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+
+
+
+# 邮箱配置
+EMAIL_HOST = os.getenv('***', 'smtp.qq.com')
+EMAIL_HOST_USER = os.getenv('***', '***@qq.com')
+EMAIL_HOST_PASSWORD = os.getenv('***', '***************')  # 这个不是邮箱密码，而是授权码
+EMAIL_PORT = os.getenv('EMAIL_PORT', 25)  # 由于阿里云的25端口打不开，所以必须使用SSL然后改用465端口
+EMAIL_TIMEOUT = 5
+# 是否使用了SSL 或者TLS，为了用465端口，要使用这个
+# EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'True').upper() == 'TRUE'
+# 默认发件人，不设置的话django默认使用的webmaster@localhost，所以要设置成自己可用的邮箱
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', '***博客 <***@qq.com>')
